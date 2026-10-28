@@ -283,3 +283,38 @@ def test_init_db_reraises_other_db_errors(monkeypatch):
     monkeypatch.setattr(Base.metadata, "create_all", failing_create_all)
     with pytest.raises(sqlalchemy.exc.IntegrityError):
         init_db()
+
+
+def test_postgres_url_fallback_when_database_url_missing(monkeypatch):
+    """Vercel's Neon integration provides POSTGRES_URL, not DATABASE_URL.
+    The app must accept it so a deployment without DATABASE_URL still
+    reaches Neon instead of falling back to SQLite."""
+    from app.config import Settings
+
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv(
+        "POSTGRES_URL", "postgresql://user:pass@ep-test-pooler.neon.tech/neondb?sslmode=require"
+    )
+    assert Settings().database_url.startswith("postgresql://")
+    assert "neon.tech" in Settings().database_url
+
+
+def test_database_url_wins_over_postgres_url(monkeypatch):
+    from app.config import Settings
+
+    monkeypatch.setenv("DATABASE_URL", "postgresql://user:pass@db.example.com/cortex")
+    monkeypatch.setenv("POSTGRES_URL", "postgresql://user:pass@ep-test-pooler.neon.tech/neondb")
+    assert Settings().database_url == "postgresql://user:pass@db.example.com/cortex"
+
+
+def test_init_db_fails_fast_on_vercel_without_postgres(monkeypatch):
+    """On Vercel without a Postgres URL, init_db must say plainly that
+    DATABASE_URL is missing — not die with SQLite's cryptic
+    'unable to open database file' (Vercel's filesystem is read-only)."""
+    import app.config as config_module
+    from app.database import init_db
+
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.setattr(config_module.settings, "database_url", "sqlite:///./cortex.db")
+    with pytest.raises(RuntimeError, match="DATABASE_URL"):
+        init_db()

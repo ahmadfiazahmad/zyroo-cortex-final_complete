@@ -4,6 +4,7 @@ Copy .env.example to .env and paste your own keys there.
 """
 import os
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -21,6 +22,20 @@ class Settings(BaseSettings):
     # SQLite by default so the project runs anywhere with zero setup.
     # For production set e.g. postgresql://user:pass@host:5432/cortex
     database_url: str = "sqlite:///./cortex.db"
+
+    @model_validator(mode="before")
+    @classmethod
+    def _postgres_url_fallback(cls, data):
+        """Vercel's Neon integration provides POSTGRES_URL, not
+        DATABASE_URL. Accept it when DATABASE_URL is not set anywhere
+        (env, .env file, or secrets). A plain class default cannot do
+        this — it is evaluated once at import time — so the fallback
+        lives in this validator instead. DATABASE_URL always wins."""
+        if isinstance(data, dict) and not data.get("database_url"):
+            postgres_url = os.getenv("POSTGRES_URL")
+            if postgres_url:
+                data = {**data, "database_url": postgres_url}
+        return data
 
     jwt_secret: str = "change-me-in-production-use-a-long-random-secret"
     jwt_algorithm: str = "HS256"

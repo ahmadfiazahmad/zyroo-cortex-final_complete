@@ -77,6 +77,21 @@ def init_db():
 
     from . import models  # noqa: F401  (import registers the models)
 
+    # Fail fast with a readable message instead of SQLite's cryptic
+    # "unable to open database file": on Vercel the function filesystem
+    # is read-only except /tmp, so the default sqlite:///./cortex.db
+    # can never be created there — and even a /tmp database would be
+    # per-instance and empty on every cold start. Vercel deployments
+    # must have a Neon Postgres URL (DATABASE_URL or POSTGRES_URL).
+    if os.getenv("VERCEL") == "1" and not is_postgres():
+        raise RuntimeError(
+            "DATABASE_URL is not set to a Neon Postgres URL. Set "
+            "DATABASE_URL (Neon pooled connection string) in Vercel → "
+            "Settings → Environment Variables for Production, then "
+            "redeploy — variables only apply to deployments created "
+            "after they are set. SQLite cannot run on Vercel."
+        )
+
     last_exc = None
     for attempt in range(3):
         try:
