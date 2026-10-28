@@ -1,0 +1,791 @@
+{
+  "info": {
+    "name": "Cortex AI Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "GET /",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": []
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Service info"
+      }
+    },
+    {
+      "name": "GET /api/admin/analytics",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/admin/analytics",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "analytics"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Platform analytics (admin)"
+      }
+    },
+    {
+      "name": "GET /api/admin/users",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/admin/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "users"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List all users (admin)"
+      }
+    },
+    {
+      "name": "PATCH /api/admin/users/{user_id}/suspend",
+      "request": {
+        "method": "PATCH",
+        "url": {
+          "raw": "{{base_url}}/api/admin/users/{user_id}/suspend",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "users",
+            "{user_id}",
+            "suspend"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Suspend or reactivate a user"
+      }
+    },
+    {
+      "name": "GET /api/admin/workspaces",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/admin/workspaces",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "workspaces"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List all workspaces (admin)"
+      }
+    },
+    {
+      "name": "POST /api/auth/login",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/auth/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Log in and get a JWT"
+      }
+    },
+    {
+      "name": "GET /api/auth/me",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/auth/me",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "me"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Get the logged-in user"
+      }
+    },
+    {
+      "name": "POST /api/auth/register",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/auth/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Register a new user"
+      }
+    },
+    {
+      "name": "POST /api/billing/cancel",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/billing/cancel",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "billing",
+            "cancel"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Cancel my subscription at period end"
+      }
+    },
+    {
+      "name": "POST /api/billing/checkout",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/billing/checkout",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "billing",
+            "checkout"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Create a Stripe Checkout session to upgrade"
+      }
+    },
+    {
+      "name": "GET /api/billing/me",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/billing/me",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "billing",
+            "me"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "My plan, usage and limits"
+      }
+    },
+    {
+      "name": "GET /api/billing/plans",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/billing/plans",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "billing",
+            "plans"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List all plans"
+      }
+    },
+    {
+      "name": "GET /api/chat/sessions",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List my chat sessions"
+      }
+    },
+    {
+      "name": "POST /api/chat/sessions",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Create a chat session"
+      }
+    },
+    {
+      "name": "DELETE /api/chat/sessions/{session_id}",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions/{session_id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions",
+            "{session_id}"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Delete a chat session"
+      }
+    },
+    {
+      "name": "GET /api/chat/sessions/{session_id}/messages",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions/{session_id}/messages",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions",
+            "{session_id}",
+            "messages"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Get message history"
+      }
+    },
+    {
+      "name": "POST /api/chat/sessions/{session_id}/messages",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions/{session_id}/messages",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions",
+            "{session_id}",
+            "messages"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Send a chat message (RAG)"
+      }
+    },
+    {
+      "name": "POST /api/chat/sessions/{session_id}/messages/stream",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/chat/sessions/{session_id}/messages/stream",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "sessions",
+            "{session_id}",
+            "messages",
+            "stream"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Send a message, streamed (SSE)"
+      }
+    },
+    {
+      "name": "GET /api/documents",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "documents"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List my documents"
+      }
+    },
+    {
+      "name": "POST /api/documents",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "documents"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Upload a document"
+      }
+    },
+    {
+      "name": "DELETE /api/documents/{doc_id}",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/api/documents/{doc_id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "documents",
+            "{doc_id}"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Delete a document and its chunks"
+      }
+    },
+    {
+      "name": "GET /api/documents/{doc_id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/documents/{doc_id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "documents",
+            "{doc_id}"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Get one document"
+      }
+    },
+    {
+      "name": "GET /api/health",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Health check"
+      }
+    },
+    {
+      "name": "POST /api/search",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/search",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "search"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Semantic search over my documents"
+      }
+    },
+    {
+      "name": "POST /api/webhooks/stripe",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/webhooks/stripe",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "webhooks",
+            "stripe"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Stripe webhook (signature verified)"
+      }
+    },
+    {
+      "name": "GET /api/workspaces",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List my workspaces"
+      }
+    },
+    {
+      "name": "POST /api/workspaces",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Create a workspace (Team plan)"
+      }
+    },
+    {
+      "name": "GET /api/workspaces/{workspace_id}",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces/{workspace_id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces",
+            "{workspace_id}"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Get one workspace"
+      }
+    },
+    {
+      "name": "GET /api/workspaces/{workspace_id}/chat-sessions",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces/{workspace_id}/chat-sessions",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces",
+            "{workspace_id}",
+            "chat-sessions"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List workspace chat sessions"
+      }
+    },
+    {
+      "name": "GET /api/workspaces/{workspace_id}/documents",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces/{workspace_id}/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces",
+            "{workspace_id}",
+            "documents"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "List workspace documents"
+      }
+    },
+    {
+      "name": "POST /api/workspaces/{workspace_id}/invite",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces/{workspace_id}/invite",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces",
+            "{workspace_id}",
+            "invite"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Invite a member by email"
+      }
+    },
+    {
+      "name": "DELETE /api/workspaces/{workspace_id}/members/{user_id}",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/api/workspaces/{workspace_id}/members/{user_id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "workspaces",
+            "{workspace_id}",
+            "members",
+            "{user_id}"
+          ]
+        },
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "description": "Remove a member"
+      }
+    }
+  ]
+}

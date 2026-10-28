@@ -1,0 +1,41 @@
+# Render deployment — https://render.com
+# 1. Push this repo to GitHub.
+# 2. In Render: New -> Blueprint -> pick this repo.
+# 3. Add your real keys (GROQ_API_KEY, STRIPE_*) in the Render dashboard.
+services:
+  - type: web
+    name: cortex-ai-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cortex-db
+          property: connectionString
+      # Real neural embeddings in production (all-MiniLM-L6-v2 via FastEmbed).
+      - key: EMBEDDING_PROVIDER
+        value: fastembed
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_PRO
+        sync: false
+      - key: STRIPE_PRICE_TEAM
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
+
+databases:
+  - name: cortex-db
+    plan: free
+    # pgvector: the app runs CREATE EXTENSION IF NOT EXISTS vector on
+    # startup (see app/database.py init_db), and Chunk.embedding is a
+    # real Vector(384) column with an HNSW cosine index on PostgreSQL.
+    # If your Render Postgres plan does not allow the extension, enable
+    # pgvector for the database in the Render dashboard first.

@@ -1,0 +1,11 @@
+# Keep the Vercel deployment bundle small: tests, scripts and local
+# artefacts are not needed at runtime.
+.venv/
+.venv-audit/
+__pycache__/
+*.pyc
+*.db
+.pytest_cache/
+tests/
+scripts/
+.env

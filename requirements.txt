@@ -1,0 +1,21 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+sqlalchemy>=2.0
+psycopg[binary]>=3.1  # PostgreSQL driver (needed when DATABASE_URL is Postgres, e.g. on Render)
+pgvector>=0.3  # pgvector Vector(384) column + cosine-distance search on PostgreSQL
+fastembed>=0.5  # real neural embeddings (all-MiniLM-L6-v2 via ONNX, no torch); only loaded when EMBEDDING_PROVIDER=fastembed
+pydantic>=2.0
+pydantic-settings>=2.0
+python-dotenv>=1.0
+PyJWT>=2.8
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+stripe>=7.0
+apscheduler>=3.10
+pypdf>=4.0
+python-docx>=1.1
+groq>=0.11
+httpx>=0.27
+email-validator>=2.0
+python-multipart>=0.0.9
+pytest>=8.0
